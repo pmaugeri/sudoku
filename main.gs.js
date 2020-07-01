@@ -135,7 +135,8 @@ function onOpen() {
   
   function resolve() {
     var change1 = 0;
-  
+    var changeCount = 0;
+
     var range = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getActiveRange();
     values = range.getValues();
     
@@ -150,6 +151,8 @@ function onOpen() {
     do {
       change1 = reduceAllRowsAndColumns();
       change2 = reduceAllSquares();
+      changeCount += change1;
+      changeCount += change2;
     } while ((change1 != 0)||(change2 != 0));
   
   
@@ -163,4 +166,9 @@ function onOpen() {
     // Update spreadsheet with the result values  
     range.setValues(values);  
   
+
+    var r = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("A12");
+    r.setValue(changeCount);
+
+
   }
