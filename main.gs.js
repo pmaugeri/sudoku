@@ -62,9 +62,6 @@ function onOpen() {
   function reduceRow(rowNumber, valueSearched) {
     var changeCount = 0;
   
-    if (hasUniqueValue(valueSearched) == 0)
-      return;
-  
     for (var c=0; c<9; c++) {
       var currentValue = values[c][rowNumber];
       if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
@@ -80,10 +77,6 @@ function onOpen() {
   
   function reduceColumn(colNumber, valueSearched) {
     var changeCount = 0;
-  
-    if (hasUniqueValue(valueSearched) == 0)
-      return;
-  
     for (var r=0; r<9; r++) {
       var currentValue = values[colNumber][r];
       if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
@@ -96,15 +89,17 @@ function onOpen() {
   }
   
   
-  function scanRowAndColumn2(rowNumber, colNumber, valueSearched) {
+  function reduceRowAndColumn(rowNumber, colNumber, valueSearched) {
     var changeCount = 0;
-    changeCount += reduceRow(rowNumber, valueSearched);
-    changeCount += reduceColumn(colNumber, valueSearched);
+    if (hasUniqueValue(valueSearched) != 0) {
+      changeCount += reduceRow(rowNumber, valueSearched);
+      changeCount += reduceColumn(colNumber, valueSearched);
+    }
     return changeCount;
   }
   
   
-  function scanAll() {
+  function reduceAllRowsAndColumns() {
   
     var changeCount = 0;
     var res1 = 0;
@@ -117,7 +112,7 @@ function onOpen() {
       for (var c=0; c<9; c++) {
         for (var r=0; r<9; r++) {
           if (hasUniqueValue(values[c][r]) !=0) {
-            itrChange += scanRowAndColumn2(r, c, values[c][r]);
+            itrChange += reduceRowAndColumn(r, c, values[c][r]);
           }
         }
       }
@@ -155,7 +150,7 @@ function onOpen() {
     }  
     
     do {
-      change1 = scanAll();
+      change1 = reduceAllRowsAndColumns();
       change2 = reduceAllSquares();
     } while ((change1 != 0)||(change2 != 0));
   
