@@ -12,20 +12,18 @@ function onOpen() {
   
   var values;
   
+  // Source: Bit Twiddling Hacks - https://graphics.stanford.edu/~seander/bithacks.html
+  function bitCount (n) {
+    n = n - ((n >> 1) & 0x55555555)
+    n = (n & 0x33333333) + ((n >> 2) & 0x33333333)
+    return ((n + (n >> 4) & 0xF0F0F0F) * 0x1010101) >> 24
+  }
+  
   // Test if a cell contains a unique digit (1, 2, 3 ... 9) and return this digit if true.
   // Returns 0 if the cell contains more than one digit
   function hasUniqueValue(cell) {
-    var res = 0;
-    var count = 0;
-    for (var i=0; i<9; i++) {
-      var digit = 2 ** i;
-      if ((cell & digit) > 0) {
-        res = digit;
-        count++;
-        if (count > 1) return 0;
-      }
-    }
-    return res;
+    if (bitCount(cell) > 1) return 0;
+    return cell;
   }
   
   
@@ -133,6 +131,12 @@ function onOpen() {
     return changeCount;
   
   }
+  
+  
+  
+  
+  
+  
   
   
   
