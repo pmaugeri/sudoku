@@ -121,8 +121,6 @@ function onOpen() {
   
     } while (itrChange != 0);
   
-    var r = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("A12");
-    r.setValue(changeCount);
     return changeCount;
   
   }
