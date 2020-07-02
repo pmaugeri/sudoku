@@ -11,15 +11,15 @@ function onOpen() {
 }
 
 var values = [
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
-    [0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF],
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF,
+    0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF
   ];
 
 
@@ -71,69 +71,67 @@ return (cell ^ digit);
 
 
 function reduceRow(rowNumber, valueSearched) {
-var changeCount = 0;
+    var changeCount = 0;
 
-for (var c=0; c<9; c++) {
-    var currentValue = values[c][rowNumber];
-    if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
-    values[c][rowNumber] = removeDigit(currentValue, valueSearched);
-    changeCount++;
+    for (var c=0; c<9; c++) {
+        var currentValue = values[c+(rowNumber*9)];
+        if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
+        values[c+(rowNumber*9)] = removeDigit(currentValue, valueSearched);
+        changeCount++;
+        }
+
     }
 
-}
-
-return changeCount;
+    return changeCount;
 }
 
 
 function reduceColumn(colNumber, valueSearched) {
-var changeCount = 0;
-for (var r=0; r<9; r++) {
-    var currentValue = values[colNumber][r];
-    if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
-    values[colNumber][r] = removeDigit(currentValue, valueSearched);
-    changeCount++;
+    var changeCount = 0;
+    for (var r=0; r<9; r++) {
+        var currentValue = values[colNumber + (r*9)];
+        if (hasUniqueValue(currentValue) == 0 && containsDigit(currentValue, valueSearched)) {
+        values[colNumber+(r*9)] = removeDigit(currentValue, valueSearched);
+        changeCount++;
+        }
     }
-}
-
-return changeCount;
+    return changeCount;
 }
 
 
 function reduceRowAndColumn(rowNumber, colNumber, valueSearched) {
-var changeCount = 0;
-if (hasUniqueValue(valueSearched) != 0) {
-    changeCount += reduceRow(rowNumber, valueSearched);
-    changeCount += reduceColumn(colNumber, valueSearched);
-}
-return changeCount;
+    var changeCount = 0;
+    if (hasUniqueValue(valueSearched) != 0) {
+        changeCount += reduceRow(rowNumber, valueSearched);
+        changeCount += reduceColumn(colNumber, valueSearched);
+    }
+    return changeCount;
 }
 
 
 function reduceAllRowsAndColumns() {
 
-var changeCount = 0;
-var res1 = 0;
-var res2 = 0;
+    var changeCount = 0;
+    var res1 = 0;
+    var res2 = 0;
 
-do {
+    do {
 
-    var itrChange = 0;
-    
-    for (var c=0; c<9; c++) {
-    for (var r=0; r<9; r++) {
-        if (hasUniqueValue(values[c][r]) !=0) {
-        itrChange += reduceRowAndColumn(r, c, values[c][r]);
+        var itrChange = 0;
+        
+        for (var c=0; c<9; c++) {
+            for (var r=0; r<9; r++) {
+                if (hasUniqueValue(values[c+(r*9)]) !=0) {
+                    itrChange += reduceRowAndColumn(r, c, values[c+(r*9)]);
+                }
+            }
         }
-    }
-    }
 
-    changeCount += itrChange;
+        changeCount += itrChange;
 
-} while (itrChange != 0);
+    } while (itrChange != 0);
 
-return changeCount;
-
+    return changeCount;
 }
 
 
@@ -145,42 +143,40 @@ return changeCount;
 
 
 function resolve() {
-var change1 = 0;
-var changeCount = 0;
+    var change1 = 0;
+    var changeCount = 0;
 
-var range = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getActiveRange();
-valuesFromSheet = range.getValues();
+    var range = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getActiveRange();
+    sheetValues = range.getValues();
 
-// Encode values
-for (var c=0; c<9; c++) {
-    for (var r=0; r<9; r++) {
-        if (valuesFromSheet[c][r] != 0) {
-            values[c][r] = encodeCell(valuesFromSheet[c][r]);
+    // Encode values
+    for (var c=0; c<9; c++) {
+        for (var r=0; r<9; r++) {
+            if (sheetValues[c][r] != 0) {
+                values[c+(r*9)] = encodeCell(sheetValues[c][r]);
+            }
         }
+    }  
+
+    do {
+        change1 = reduceAllRowsAndColumns();
+        change2 = reduceAllSquares();
+        changeCount += change1;
+        changeCount += change2;
+    } while ((change1 != 0)||(change2 != 0));
+
+    // Decode values
+    for (var c=0; c<9; c++) {
+      for (var r=0; r<9; r++) {
+        sheetValues[c][r] = decodeCell(values[c+(r*9)]);
+      }
     }
-}  
 
-do {
-    change1 = reduceAllRowsAndColumns();
-    change2 = reduceAllSquares();
-    changeCount += change1;
-    changeCount += change2;
-} while ((change1 != 0)||(change2 != 0));
+    // Update spreadsheet with the result values  
+    range.setValues(sheetValues);  
 
+    var r = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("A12");
+    r.setValue(changeCount);
 
-// Decode values
-for (var c=0; c<9; c++) {
-    for (var r=0; r<9; r++) {
-    values[c][r] = decodeCell(values[c][r]);
-    }
 }
 
-// Update spreadsheet with the result values  
-range.setValues(values);  
-
-
-var r = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("A12");
-r.setValue(changeCount);
-
-
-}

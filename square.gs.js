@@ -7,12 +7,12 @@ function reduceSquare(squareValues, c0, r0) {
     var oldChangeCount = changeCount;
     for (var c=c0; c<(c0+3); c++) {
       for (var r=r0; r<(r0+3); r++) {
-        var valueSearched = hasUniqueValue(squareValues[c][r]);
+        var valueSearched = hasUniqueValue(squareValues[c+(r*9)]);
         if (valueSearched > 0) {                
           for (var c2=c0; c2<(c0+3); c2++) {
             for (var r2=r0; r2<(r0+3); r2++) {
-              if ( (hasUniqueValue(squareValues[c2][r2]) == 0) && containsDigit(squareValues[c2][r2], valueSearched)) {
-                squareValues[c2][r2] = removeDigit(squareValues[c2][r2], valueSearched);
+              if ( (hasUniqueValue(squareValues[c2+(r2*9)]) == 0) && containsDigit(squareValues[c2+(r2*9)], valueSearched)) {
+                squareValues[c2+(r2*9)] = removeDigit(squareValues[c2+(r2*9)], valueSearched);
                 changeCount++;              
               }
             }
@@ -30,7 +30,7 @@ function reduceSquare(squareValues, c0, r0) {
       var lastRow = -1;
       for (var c=c0; c<(c0+3); c++) {
         for (var r=r0; r<(r0+3); r++) {      
-          if ( (hasUniqueValue(squareValues[c][r]) == 0) && containsDigit(squareValues[c][r], valueSearched) ) {
+          if ( (hasUniqueValue(squareValues[c+(r*9)]) == 0) && containsDigit(squareValues[c+(r*9)], valueSearched) ) {
             if (lastCol == -1) {
               lastCol = c;
               lastRow = r;
@@ -46,7 +46,7 @@ function reduceSquare(squareValues, c0, r0) {
         if (lastCol == -2) break;
       }
       if (lastCol > -1) {
-        squareValues[lastCol][lastRow] = valueSearched;
+        squareValues[lastCol+(lastRow*9)] = valueSearched;
         changeCount++;              
       }
     }
