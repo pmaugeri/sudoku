@@ -119,11 +119,11 @@ function reduceAllRowsAndColumns() {
 
         var itrChange = 0;
         
-        for (var c=0; c<9; c++) {
-            for (var r=0; r<9; r++) {
-                if (hasUniqueValue(values[c+(r*9)]) !=0) {
-                    itrChange += reduceRowAndColumn(r, c, values[c+(r*9)]);
-                }
+        for (var i=0; i<81; i++) {
+            if (hasUniqueValue(values[i]) !=0) {
+                var rowNumber = Math.floor(i/9);
+                var colNumber = i%9;
+                itrChange += reduceRowAndColumn(rowNumber, colNumber, values[i]);
             }
         }
 
