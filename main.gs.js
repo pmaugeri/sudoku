@@ -33,6 +33,17 @@ var values = [
     0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF, 0x1FF
 ];
 
+var sheetValues = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 6, 2],
+    [0, 0, 0, 0, 0, 5, 0, 0, 3],
+    [0, 3, 0, 0, 0, 9, 0, 0, 1],
+    [0, 0, 9, 0, 0, 0, 0, 0, 0],
+    [0, 0, 5, 0, 1, 2, 4, 0, 8],
+    [0, 0, 3, 0, 0, 0, 0, 0, 4],
+    [0, 5, 4, 0, 0, 3, 1, 0, 9],
+    [0, 9, 2, 0, 8, 4, 0, 7, 5]
+];
 
 /**
  * Called when the gdoc spreadsheet document is open. It creates the application menu.
@@ -260,7 +271,6 @@ function reduceAllRowsAndColumns() {
  * @return {Number} the number of changes applied to the square
  */
 function reduceWithVectors(squareValues, c0, r0) {
-    var vectors = [];
     var digitCandidates = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var changeCount = 0;
 
@@ -289,19 +299,19 @@ function reduceWithVectors(squareValues, c0, r0) {
         // Scan rows for the vector
         for (var r = r0; r < (r0 + 3); r++) {
             if ((containsDigit(squareValues[c0 + (r * 9)], searchedValue) && containsDigit(squareValues[c0 + 1 + (r * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+1).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceRow(r, searchedValue, c0, (c0 + 2));
             }
             if ((containsDigit(squareValues[c0 + 1 + (r * 9)], searchedValue) && containsDigit(squareValues[c0 + 2 + (r * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+1).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+2).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceRow(r, searchedValue, c0, (c0 + 2));
             }
             if ((containsDigit(squareValues[c0 + (r * 9)], searchedValue) && containsDigit(squareValues[c0 + 2 + (r * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on row ' + r);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+2).toString()+(r+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceRow(r, searchedValue, c0, (c0 + 2));
@@ -310,19 +320,19 @@ function reduceWithVectors(squareValues, c0, r0) {
         // Scan columns for the vector
         for (var c = c0; c < (c0 + 3); c++) {
             if ((containsDigit(squareValues[c + (r0 * 9)], searchedValue) && containsDigit(squareValues[c + ((r0 + 1) * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceColumn(c, searchedValue, r0, (r0 + 2));
             }
             if ((containsDigit(squareValues[c + (r0 * 9)], searchedValue) && containsDigit(squareValues[c + ((r0 + 2) * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+2+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceColumn(c, searchedValue, r0, (r0 + 2));
             }
             if ((containsDigit(squareValues[c + ((r0 + 1) * 9)], searchedValue) && containsDigit(squareValues[c + ((r0 + 2) * 9)], searchedValue))) {
-                Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
+                //Logger.info('Found a 2-digit vector with digit ' + smallVector[i] + ' on column ' + c);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 //          SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+2+1)).setBackground(BG_COLORS[smallVector[i]-1]);
                 changeCount += reduceColumn(c, searchedValue, r0, (r0 + 2));
@@ -338,7 +348,7 @@ function reduceWithVectors(squareValues, c0, r0) {
             if (containsDigit(squareValues[c0 + (r * 9)], searchedValue) &&
                 containsDigit(squareValues[c0 + 1 + (r * 9)], searchedValue) &&
                 containsDigit(squareValues[c0 + 2 + (r * 9)], searchedValue)) {
-                Logger.info('Found a 3-digit vector with digit ' + longVector[i] + ' on row ' + r);
+                //Logger.info('Found a 3-digit vector with digit ' + longVector[i] + ' on row ' + r);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0).toString()+(r+1)).setBackground(BG_COLORS[longVector[i]-1]);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+1).toString()+(r+1)).setBackground(BG_COLORS[longVector[i]-1]);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c0+2).toString()+(r+1)).setBackground(BG_COLORS[longVector[i]-1]);
@@ -350,7 +360,7 @@ function reduceWithVectors(squareValues, c0, r0) {
             if (containsDigit(squareValues[c + (r0 * 9)], searchedValue) &&
                 containsDigit(squareValues[c + ((r0 + 1) * 9)], searchedValue) &&
                 containsDigit(squareValues[c + ((r0 + 2) * 9)], searchedValue)) {
-                Logger.info('Found a 3-digit vector with digit ' + longVector[i] + ' on column ' + c);
+                //Logger.info('Found a 3-digit vector with digit ' + longVector[i] + ' on column ' + c);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1)).setBackground(BG_COLORS[longVector[i]-1]);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+1+1)).setBackground(BG_COLORS[longVector[i]-1]);
                 //            SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(COLUMNS.charAt(c).toString()+(r0+2+1)).setBackground(BG_COLORS[longVector[i]-1]);
@@ -362,6 +372,92 @@ function reduceWithVectors(squareValues, c0, r0) {
     return changeCount;
 }
 
+/**
+ * Reduce a 3x3 square in 2 phases.
+ * The first phase detects a cell with a single digit and removes this digits from the other 8 square cells.
+ * The secode phase detects cells with multiple digits and check if one of the digit is found only in this cell. If yes if will reduce the cell with the digit found (only possibility for the digit).
+ * 
+ * @param {String} squareValues the whole 9x9 square values. The changes will appear in this array
+ * @param {String} c0 the column index of the 3x3 square within the 9x9 square
+ * @param {String} r0 the row index of the 3x3 square within the 9x9 square
+ * @return {String} the number of changes applied
+ */
+function reduceSquare(squareValues, c0, r0) {
+
+    var changeCount = 0;
+  
+    // Scan for cell with a single digit
+    do {
+      var oldChangeCount = changeCount;
+      for (var c = c0; c < (c0 + 3); c++) {
+        for (var r = r0; r < (r0 + 3); r++) {
+          var valueSearched = hasUniqueValue(squareValues[c + (r * 9)]);
+          if (valueSearched > 0) {
+            for (var c2 = c0; c2 < (c0 + 3); c2++) {
+              for (var r2 = r0; r2 < (r0 + 3); r2++) {
+                if ((hasUniqueValue(squareValues[c2 + (r2 * 9)]) == 0) && containsDigit(squareValues[c2 + (r2 * 9)], valueSearched)) {
+                  squareValues[c2 + (r2 * 9)] = removeDigit(squareValues[c2 + (r2 * 9)], valueSearched);
+                  changeCount++;
+                }
+              }
+            }
+          }
+        }
+      }
+    } while ((changeCount - oldChangeCount) > 0);
+  
+    do {
+      var oldChangeCount = changeCount;
+      for (var i = 0; i < 9; i++) {
+        var valueSearched = 2 ** i;
+        var lastCol = -1;
+        var lastRow = -1;
+        for (var c = c0; c < (c0 + 3); c++) {
+          for (var r = r0; r < (r0 + 3); r++) {
+            if ((hasUniqueValue(squareValues[c + (r * 9)]) == 0) && containsDigit(squareValues[c + (r * 9)], valueSearched)) {
+              if (lastCol == -1) {
+                lastCol = c;
+                lastRow = r;
+              }
+              else {
+                lastCol = -2;
+                lastRow = -2;
+                break;
+              }
+            }
+            if (lastCol == -2) break;
+          }
+          if (lastCol == -2) break;
+        }
+        if (lastCol > -1) {
+          squareValues[lastCol + (lastRow * 9)] = valueSearched;
+          changeCount++;
+        }
+      }
+    } while ((changeCount - oldChangeCount) > 0);
+  
+    return changeCount;
+  }
+  
+  
+  /**
+   * Scan the nine 3x3 squares and call reduceSquare() for each one.
+   * The first phase detects a cell with a single digit and removes this digits from the other 8 square cells.
+   * The secode phase detects cells with multiple digits and check if one of the digit is found only in this cell. If yes if will reduce the cell with the digit found (only possibility for the digit).
+   * 
+   * @param {String} squareValues the whole 9x9 square values. The changes will appear in this array
+   * @return {String} the number of changes applied
+   */
+  function reduceAllSquares(squareValues) {
+    var changeCount = 0;
+    for (var row = 0; row < 3; row++) {
+      changeCount += reduceSquare(squareValues, 0, (row * 3));
+      changeCount += reduceSquare(squareValues, 3, (row * 3));
+      changeCount += reduceSquare(squareValues, 6, (row * 3));
+    }
+    return changeCount;
+  }
+  
 
 /**
  * The main function that will perform reductions of the rows, columns and 
@@ -415,4 +511,94 @@ function resolve() {
     var r = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange(CHANGE_COUNT_RANGE);
     r.setValue(changeCount);
 
+}
+
+function resolveNodeJS() {
+    var change1 = 0, change2 = 0, change3 = 0;
+    var changeCount = 0;
+
+    // Encode values
+    for (var r = 0; r < 9; r++) {
+        for (var c = 0; c < 9; c++) {
+            if (sheetValues[r][c] != 0) {
+                values[c + (r * 9)] = encodeCell(sheetValues[r][c]);
+            }
+        }
+    }
+
+    do {
+        change1 = reduceAllRowsAndColumns();
+        change2 = reduceAllSquares(values);
+
+        change3 = 0;
+        for (var row = 0; row < 3; row++) {
+            change3 += reduceWithVectors(values, 0, (row * 3));
+            change3 += reduceWithVectors(values, 3, (row * 3));
+            change3 += reduceWithVectors(values, 6, (row * 3));
+        }    
+
+        changeCount = changeCount + change1 + change2 + change3;
+
+    } while ((change1 != 0) || (change2 != 0) || (change3 != 0));
+
+    // Decode values
+    for (var r = 0; r < 9; r++) {
+        for (var c = 0; c < 9; c++) {
+            sheetValues[r][c] = decodeCell(values[c + (r * 9)]);
+        }
+    }
+
+    return changeCount;
+
+}
+
+
+// Load Sudoku problem from square.txt file
+var fs = require("fs");
+var text = fs.readFileSync("./square.txt").toString('utf-8');
+var textByLine = text.split("\n")
+for (var r=0; r<9; r++) {
+    var line = textByLine[r].split(" ");
+    for (var c=0; c<9; c++) {
+        sheetValues[r][c] = line[c];       
+    }    
+}
+
+changeCount = resolveNodeJS();
+console.log(changeCount + " changes applied.");
+
+// Check result
+var solutionFound = true;
+for (var r=0; r<9; r++) {
+    var rowTotal = 0;
+    for (var c=0; c<9; c++) {
+        rowTotal += (new Number(sheetValues[r][c]));
+    }
+    if (rowTotal != 45) {
+        console.log(r + " " + rowTotal);
+        solutionFound = false;
+        break;
+    }
+}
+for (var c=0; c<9; c++) {
+    var colTotal = 0;
+    for (var r=0; r<9; r++) {        
+        colTotal += (new Number(sheetValues[r][c]));
+    }
+    if (colTotal != 45) {
+        solutionFound = false;
+        break;
+    }
+}
+if (solutionFound == false) {
+    console.log("No solution found yet!")
+}
+
+// Print results
+for (var r=0; r<9; r++) {
+    var line = ""
+    for (var c=0; c<9; c++) {
+        line = line + sheetValues[r][c] + " ";
+    }    
+    console.log(line);
 }
