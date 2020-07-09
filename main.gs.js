@@ -4,7 +4,7 @@
  * Git repository: https://github.com/pmaugeri/sudoku
  * 
  * @author P.Maugeri
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 var COLUMNS = "ABCDEFGHI"
@@ -40,11 +40,7 @@ var values = [
 function onOpen() {
     var ui = SpreadsheetApp.getUi();
     ui.createMenu('Sudoku Resolver')
-        .addSeparator()
         .addItem('Resolve', 'resolve')
-        .addSeparator()
-        .addItem('Show small vectors', 'showSmallVectors')
-        .addItem('Show long vectors', 'showLongVectors')
         .addToUi();
 }
 
