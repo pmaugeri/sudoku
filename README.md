@@ -26,10 +26,22 @@ Example:
 0 5 0 0 2 0 0 6 3
 ```
 
-Run it from command line passing the grid name as first command line parameter:
+Run the resolver from command line passing the grid name as first command line parameter.
+Example
 
 ```
-node main.js grids/grid.txt
+time node main.js grids/lemonde-20-160.txt
+435 changes applied.
+3 8 1 9 2 6 5 4 7 
+5 4 7 1 3 8 9 6 2 
+9 2 6 7 4 5 8 1 3 
+2 3 8 4 6 9 7 5 1 
+4 1 9 8 5 7 2 3 6 
+7 6 5 3 1 2 4 9 8 
+8 7 3 5 9 1 6 2 4 
+6 5 4 2 7 3 1 8 9 
+1 9 2 6 8 4 3 7 5 
+node main.js grids/lemonde-20-160.txt  0.06s user 0.01s system 108% cpu 0.068 total
 ```
 
 ### Google Spreadsheet
