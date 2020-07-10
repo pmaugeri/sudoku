@@ -554,7 +554,7 @@ function resolveNodeJS() {
 
 
 // Load Sudoku problem from square.txt file
-var square_file = "grid.txt"
+var square_file = "grids/grid.txt"
 var args = process.argv.slice(2);
 if (args[0] != null)
 square_file = args[0];
