@@ -554,8 +554,12 @@ function resolveNodeJS() {
 
 
 // Load Sudoku problem from square.txt file
+var square_file = "square.txt"
+var args = process.argv.slice(2);
+if (args[0] != null)
+square_file = args[0];
 var fs = require("fs");
-var text = fs.readFileSync("./square.txt").toString('utf-8');
+var text = fs.readFileSync(square_file).toString('utf-8');
 var textByLine = text.split("\n")
 for (var r=0; r<9; r++) {
     var line = textByLine[r].split(" ");
