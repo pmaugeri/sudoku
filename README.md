@@ -26,8 +26,13 @@ Example:
 0 5 0 0 2 0 0 6 3
 ```
 
-Run the resolver from command line passing the grid name as first command line parameter.
-Example
+Run the resolver from command line passing the grid name as first command line parameter:
+
+```
+node main.js grids/lemonde-20-160.txt
+```
+
+Example using Le Monde grid N°20-160:
 
 ```
 time node main.js grids/lemonde-20-160.txt
