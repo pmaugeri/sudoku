@@ -512,3 +512,97 @@ function resolve() {
     r.setValue(changeCount);
 
 }
+
+function resolveNodeJS() {
+    var change1 = 0, change2 = 0, change3 = 0;
+    var changeCount = 0;
+
+    // Encode values
+    for (var r = 0; r < 9; r++) {
+        for (var c = 0; c < 9; c++) {
+            if (sheetValues[r][c] != 0) {
+                values[c + (r * 9)] = encodeCell(sheetValues[r][c]);
+            }
+        }
+    }
+
+    do {
+        change1 = reduceAllRowsAndColumns();
+        change2 = reduceAllSquares(values);
+
+        change3 = 0;
+        for (var row = 0; row < 3; row++) {
+            change3 += reduceWithVectors(values, 0, (row * 3));
+            change3 += reduceWithVectors(values, 3, (row * 3));
+            change3 += reduceWithVectors(values, 6, (row * 3));
+        }    
+
+        changeCount = changeCount + change1 + change2 + change3;
+
+    } while ((change1 != 0) || (change2 != 0) || (change3 != 0));
+
+    // Decode values
+    for (var r = 0; r < 9; r++) {
+        for (var c = 0; c < 9; c++) {
+            sheetValues[r][c] = decodeCell(values[c + (r * 9)]);
+        }
+    }
+
+    return changeCount;
+
+}
+
+
+// Load Sudoku problem from square.txt file
+var square_file = "grid.txt"
+var args = process.argv.slice(2);
+if (args[0] != null)
+square_file = args[0];
+var fs = require("fs");
+var text = fs.readFileSync(square_file).toString('utf-8');
+var textByLine = text.split("\n")
+for (var r=0; r<9; r++) {
+    var line = textByLine[r].split(" ");
+    for (var c=0; c<9; c++) {
+        sheetValues[r][c] = line[c];       
+    }    
+}
+
+changeCount = resolveNodeJS();
+console.log(changeCount + " changes applied.");
+
+// Check result
+var solutionFound = true;
+for (var r=0; r<9; r++) {
+    var rowTotal = 0;
+    for (var c=0; c<9; c++) {
+        rowTotal += (new Number(sheetValues[r][c]));
+    }
+    if (rowTotal != 45) {
+        console.log(r + " " + rowTotal);
+        solutionFound = false;
+        break;
+    }
+}
+for (var c=0; c<9; c++) {
+    var colTotal = 0;
+    for (var r=0; r<9; r++) {        
+        colTotal += (new Number(sheetValues[r][c]));
+    }
+    if (colTotal != 45) {
+        solutionFound = false;
+        break;
+    }
+}
+if (solutionFound == false) {
+    console.log("No solution found yet!")
+}
+
+// Print results
+for (var r=0; r<9; r++) {
+    var line = ""
+    for (var c=0; c<9; c++) {
+        line = line + sheetValues[r][c] + " ";
+    }    
+    console.log(line);
+}
