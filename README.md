@@ -47,4 +47,4 @@ Here is how you can install and run it:
 
 ## Acknowledgements
 
-Thank you to [Yan Georget](https://about.me/yangeorget) for publishing Sudoku grids every day in the french newspaper Le Monde. I used Yan's grids to engineer this resolver.
+Thanks to [Yan Georget](https://about.me/yangeorget) for publishing Sudoku grids everyday in the french newspaper Le Monde. I used Yan's grids to engineer this resolver.
