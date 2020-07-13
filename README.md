@@ -8,8 +8,6 @@ This program will resolve most of "difficult" problems in less than 1 second. It
 
 When conventional methods do not lead to a resolution, it will consider recursively "hypothesis" (eg. if a cell can contain digits 1, 2 or 3, let's consider it contains a "1" and try to resolve again).
 
-If you find a problem that this resolver is not able to resolve, please drop me a line ;-)
-
 ## Usage
 
 ### NodeJS
@@ -69,3 +67,7 @@ Here is how you can install and run it:
 ## Acknowledgements
 
 Thanks to [Yan Georget](https://about.me/yangeorget) for publishing Sudoku grids everyday in the french newspaper Le Monde. I used Yan's grids to engineer this resolver.
+
+## Author
+
+If you encounter a Sudoku problem that this program is not able to resolve, please drop me a line to pmaugeri5 AT gmail DOT com. I will be very happy to have a look to it.
