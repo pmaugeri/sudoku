@@ -751,29 +751,43 @@ function reduceGrid(grid) {
     return changeCount;
 }
 
+/**
+ * Read a text file and parse a grid.
+ * The lines starting by '#' are ignored (used for comments).
+ * 
+ * @param {String} filename 
+ * @returns a grid array of 81 un-encoded values
+ */
+function readGridFromFile(filename) {
+    var fs = require("fs");
+    var text = fs.readFileSync(filename).toString('utf-8');
+    var textByLine = text.split("\n")
+    var grid = [];
+    var r = 0;
+    for (var l=0; l<textByLine.length; l++) {   
+        if (!textByLine[l].startsWith('#')) {
+            line = textByLine[l].split(" ");
+            for (var c = 0; c < 9; c++) {
+                grid[c + (r * 9)] = line[c];
+            }
+            r++;
+        }
+    }
+    return grid;    
+}
+
 
 // Load Sudoku problem from square.txt file
 var square_file = "grids/grid.txt"
 var args = process.argv.slice(2);
-if (args[0] != null)
+if (args[0] != null) {
     square_file = args[0];
-var fs = require("fs");
-var text = fs.readFileSync(square_file).toString('utf-8');
-var textByLine = text.split("\n")
-var grid = [];
-for (var r = 0; r < 9; r++) {
-    var line = textByLine[r].split(" ");
-    for (var c = 0; c < 9; c++) {
-        grid[c + (r * 9)] = line[c];
-    }
 }
-
+grid = readGridFromFile(square_file);
 encodedGrid = encodeGrid(grid);
-printGrid(encodedGrid, true);
 changeCount = reduceGrid(encodedGrid);
 if (resultFound) {
     decodedGrid = decodeGrid(resultGrid);
     printGrid(decodedGrid, false);
 }
-
 console.log(changeCount + " changes applied.");
