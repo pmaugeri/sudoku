@@ -575,8 +575,10 @@ function reduceAllSquares(squareValues) {
 }
 
 /**
+ * Count the occurences of each of the nine digits among cells with multiple candidates.
  * 
- * @param {*} grid 
+ * @param {Array} grid an array of 81 encoded values
+ * @returns an array that gives a list of digits sorted from the least frequent to the more frequent
  */
 function findHypothesis(grid) {
     var result = [];
@@ -597,10 +599,6 @@ function findHypothesis(grid) {
             digitCandidate = d;
     }
 
-    console.log("Frequencies of digits: " + digitFreq + ", candidate: " + digitCandidate);
-
-
-
     // Build an array that contains digits sorted by frequencies (digit with lower frequency is first)
     while (result.length < digitFreq.length) {
         for (var i = 0; i < digitFreq.length; i++) {
@@ -618,7 +616,6 @@ function findHypothesis(grid) {
             }
         }
     }
-    console.log("Candidate digits sorted by frequencies: " + result);
 
     return result;
 }
