@@ -12,16 +12,6 @@ var COLUMNS = "ABCDEFGHI"
 
 var CHANGE_COUNT_RANGE = "D12";
 
-var BG_COLORS = ["#ff0000",
-    "#ff9900",
-    "#ffff00",
-    "#00ff00",
-    "#00ffff",
-    "#4a86e8",
-    "#0000ff",
-    "#9900ff",
-    "#ff00ff"]
-
 // This global variable is set to True when a result has been found
 var resultFound = false;
 var resultGrid;
