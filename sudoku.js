@@ -753,7 +753,7 @@ function readGridFromFile(filename) {
     var r = 0;
     for (var l=0; l<textByLine.length; l++) {   
         if (!textByLine[l].startsWith('#')) {
-            line = textByLine[l].split(" ");
+            line = textByLine[l].split(' ');
             for (var c = 0; c < 9; c++) {
                 grid[c + (r * 9)] = line[c];
             }
